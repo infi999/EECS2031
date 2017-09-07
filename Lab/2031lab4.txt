@@ -1,0 +1,176 @@
+/***********************************
+* EECS2031 - Lab 4		   
+* Filename: lab4a.c		  	
+* Author: Last name, first name	    
+* Email: Your email address	 	
+* Login ID: Your EECS login ID 		
+************************************/
+
+#include <stdio.h>
+
+#define MAX_SIZE 500
+
+void myStrInput ( char *s );
+int myStrCmp( char *s1, char *s2 );
+
+main() 
+{
+   char strg1[ MAX_SIZE ], strg2[ MAX_SIZE ];
+
+   /* Input strings strg1 and strg2. */
+   /* Assume that the length of each input string is less than 100 characters. */
+
+   myStrInput( strg1 );
+   myStrInput( strg2 );
+   printf( "%d\n", myStrCmp( strg1, strg2 ));
+}
+
+
+/************* DO NOT MODIFY ANYTHING ABOVE THIS LINE, *************/
+/************* EXCEPT THE HEADER CONTAINING YOUR INFO **************/
+
+
+/* Function myStrInput
+   Input: an array of char pointed to by pointer s.
+   Output: the same array that stores the user's input string.
+   Note: The length of each input string is less than the array size. 
+   So no error checking for the string length is required. 
+   Do not modify the function definition.
+ */
+
+void myStrInput ( char *s )
+{
+   char c;
+   c = getchar();
+   while( c != '\n' ) {
+      *s = c;
+      s++;
+      c = getchar();
+   } ;
+   *s = '\0';
+}
+
+
+
+/* Function myStrCmp
+   Input: two strings pointed to by pointers s1 and s2.
+   Output: returns the first position (array index) where the two strings differ. 
+   Special cases:
+   1. Two strings are equal: returns -1.
+   2. One string is a substring of the other (e.g., "CSE2031" and "CSE2031E3.0"):
+	returns the length of the shorter string.
+   Do not modify the function definition.
+ */
+
+int myStrCmp( char *s1, char *s2 )
+{
+   int pos = 0, diff = -1;
+   while( *(s1+pos) != '\0' && *(s2+pos) !='\0' ){
+      if( *(s1+pos) != *(s2+pos) && diff == -1 )
+         diff = pos;
+      pos++;
+   }
+   if( *(s1+pos) != *(s2+pos) && diff == -1 )
+      diff = pos;
+   
+   return diff;
+}
+
+
+/***********************************
+* EECS2031 - Lab 4		   
+* Filename: lab4b.c		  	
+* Author: Last name, first name	    
+* Email: Your email address	 	
+* Login ID: Your EECS login ID 		
+************************************/
+
+
+#include <stdio.h>
+
+#define MAX_SIZE 100
+
+main() {
+
+  char my_strg[ MAX_SIZE ];
+  double my_number = 0.0;
+
+
+  /********** Fill in your code here. **********/
+
+  int c, i = 0;
+  int n = 0;  /* number of fractional digits */
+  double frac = 0.0; 
+
+  /* Input a string */
+  while ( ( c = getchar() ) != '\n' )
+    my_strg[ i++ ] = c;
+  my_strg[ i ] = '\0';
+
+  /* Convert the string to a double */
+  for( i = 0; my_strg[ i ] != '.'; i++ )
+    my_number = my_number * 10 + ( my_strg[ i ] - '0' );
+
+  /* At this point, my_strg[i] == '.' and my_number contains the integer part. */
+  /* Process the fractional part */
+  for( i++, n = 0; my_strg[ i ] != '\0'; i++, n++ )
+    frac = frac * 10 + ( my_strg[ i ] - '0' ); 
+
+  /* At this point, my_strg[i] == '\0' */
+  /* Adjust the fractional part */
+  for( i = 1; i <= n; i++ )
+    frac /= 10;  
+
+  my_number += frac;
+  
+  /*********************************************/
+
+  printf( "%.6f\n", my_number );
+}
+
+
+/***********************************
+* EECS2031 - Lab 4		   
+* Filename: lab4c.c		  	
+* Author: Last name, first name	    
+* Email: Your email address	 	
+* Login ID: Your EECS login ID 		
+************************************/
+
+
+#include <stdio.h>
+
+#define MAX_SIZE 100
+
+main() {
+
+   char my_strg[ MAX_SIZE ];
+   char *p = my_strg;
+   char *v = my_strg;
+
+   /********** Add your code in the below space. **********/
+   /****** Do not use variable my_strg in the code. *******/
+   /** You may define additional variables except arrays. */
+   
+    int len = 0, i;
+	char c;
+	c = getchar();
+	while( c != '\n' ) {
+		*p = c;
+		p++;
+		c = getchar();
+	} ;
+	*p = '\0';
+	p--;
+	while( p > v ){
+		char tmpc = *p;
+		*p = *v;
+		*v = tmpc;
+		p--;
+		v++;
+	}
+   /********** Add your code in the above space. **********/
+
+   printf( "%s\n", my_strg );  /* output the reversed string */
+
+} /* end main */
