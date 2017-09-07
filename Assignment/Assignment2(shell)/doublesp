@@ -1,0 +1,84 @@
+#!/bin/sh
+################################
+# EECS 2031 - Assignment 2
+# Filename: doublesp
+# Author: Wang, Yang
+# Email: infi5959512@hotmail.com
+# Login ID: infi999
+################################
+
+echo -n "Enter input file name:"
+read input 
+
+if test ! -e $input
+then
+echo "File '$input' does not exist."
+exit 1
+elif test ! -r $input
+then
+echo "File '$input' is not readable."
+exit 1
+fi
+
+
+
+echo -n "Enter output file name:"
+read output 
+
+
+if test -e $output
+then
+
+if test ! -w $output
+then
+echo "File '$output' is not writable."
+exit 1
+else
+echo "File '$output' exists."
+fi
+
+else
+count=1
+cat $input | while read name other
+do
+if test `expr $count % 2` -eq 0
+then 
+echo -e "$name $other \n"
+count=`expr $count + 1`
+else
+echo -e "$name $other"
+count=`expr $count + 1`
+fi
+done > $output
+exit 1
+fi
+
+echo -n "Append to it (y/n)? "
+read Append
+
+while test $Append != y && test $Append != n && test $Append != N && test $Append != Y 
+do
+echo "Invalid option"
+echo -n "Append to it (y/n)? "
+read Append
+done
+
+if test $Append = y || test $Append = Y
+then
+
+count=1
+cat $input | while read name other
+do
+if test `expr $count % 2` -eq 0
+then 
+echo -e "$name $other \n"
+count=`expr $count + 1`
+else
+echo -e "$name $other"
+count=`expr $count + 1`
+fi
+done >> $output
+
+else
+exit 1
+fi

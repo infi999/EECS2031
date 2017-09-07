@@ -1,0 +1,48 @@
+#!/bin/sh
+################################
+# EECS 2031 - Assignment 2
+# Filename: icount
+# Author: Wang, Yang
+# Email: infi5959512@hotmail.com
+# Login ID: infi999
+################################
+echo -n "Enter the file name:"
+read name 
+
+if test ! -e $name
+then
+echo "File '$name' does not exist."
+exit 1
+elif test ! -r $name
+then
+echo "File '$name' is not readable."
+exit 1
+fi
+
+echo -n "Count lines, words, characters or all there (1, m, c, a)? "
+read count
+
+while test $count != l && test $count != L && test $count != m && test $count != M && test $count != c && test $count != C && test $count != a && test $count != A
+do
+echo "Invalid option"
+echo -n "Count lines, words, characters or all there (1, m, c, a)? "
+read count
+done
+
+if test $count = l || test $count = L
+then
+echo "File '$name' countains `cat $name | wc -l` lines."
+
+elif test $count = m || test $count = M
+then
+echo "File '$name' countains `cat $name | wc -w` words."
+
+elif test $count = c || test $count = C
+then
+echo "File '$name' countains `cat $name | wc -c` characters."
+
+elif test $count = a || test $count = A
+then
+
+echo "File '$name' countains `cat $name | wc -l` lines, `cat $name | wc -w` words and `cat $name | wc -c` characters."
+fi

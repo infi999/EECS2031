@@ -1,0 +1,57 @@
+#!/bin/sh
+################################
+# EECS 2031 - Assignment 2
+# Filename: prtlines
+# Author: Wang, Yang
+# Email: infi5959512@hotmail.com
+# Login ID: infi999
+################################
+
+echo -n "Enter the file name:"
+read name 
+
+if test ! -e $name
+then
+echo "File '$name' does not exist."
+exit 1
+elif test ! -r $name
+then
+echo "File '$name' does not readable."
+exit 1
+fi
+
+line=`cat $name | wc -l`
+echo "File '$name' has $line lines."
+
+echo -n "From line: "
+read from
+
+while test $from -le 0 || test $from -ge $line
+do
+echo "Invalid line number"
+echo -n "From line: "
+read from 
+done
+
+echo -n "To line: "
+read to
+
+while test $to -le $from || test $to -ge $line 
+do
+echo "Invalid line number"
+echo -n "To line: "
+read to
+done
+
+count=0
+cat $name | while read name other
+do
+count=`expr $count + 1`
+
+if test $count -ge $from && test $count -le $to
+then 
+echo "$count: $name $other"
+fi
+done
+
+

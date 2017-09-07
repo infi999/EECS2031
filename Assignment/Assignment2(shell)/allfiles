@@ -1,0 +1,16 @@
+#!/bin/sh
+################################
+# EECS 2031 - Assignment 2
+# Filename: allfiles
+# Author: Wang, Yang
+# Email: infi5959512@hotmail.com
+# Login ID: infi999
+################################
+
+for i in *
+do
+if test -f $i
+then
+ls $i
+fi
+done

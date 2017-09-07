@@ -1,0 +1,42 @@
+#!/bin/sh
+################################
+# EECS 2031 - Assignment 2
+# Filename: myutil
+# Author: Wang, Yang
+# Email: infi5959512@hotmail.com
+# Login ID: infi999
+################################
+
+menu="=================== Menu ===================\ns: Search for a word \nc: Count lines, words, characters\nf: List all ordinary files in current directory\nv: View content of file\nd: Double spacing\na: Add line numbers\nl: Display specified lines in file\nh: Help / Display this menu\nr: Clear the screen\nq: Quit the program\n============================================"
+echo -e $menu
+while test 1 -eq 1
+do 
+echo -n "
+Enter command: "
+read input
+
+case $input in 
+s|S)
+  ./isearch ;;
+c|C)
+  ./icount ;;
+f|F)
+  ./allfiles ;;
+v|V)
+  ./fdisplay ;;
+d|D)
+  ./doublesp ;;
+a|A)
+  ./addlines ;;
+l|L)
+  ./prtlines ;;
+h|H)
+  echo -e $menu ;;
+r|R)
+clear ;;
+q|Q)
+exit 1 ;;
+*)
+echo "Invalid command" ;;
+esac
+done

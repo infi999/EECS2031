@@ -1,0 +1,50 @@
+#!/bin/sh
+################################
+# EECS 2031 - Assignment 2
+# Filename: fdisplay
+# Author: Wang, Yang
+# Email: infi5959512@hotmail.com
+# Login ID: infi999
+################################
+
+echo -n "Enter the file name:"
+read name 
+
+if test ! -e $name
+then
+echo "File '$name' does not exist."
+exit 1
+elif test ! -r $name
+then
+echo "File '$name' is not readable."
+exit 1
+fi
+
+echo -n "Enter option (e, p, f, l): "
+read option
+
+while test $option != e && test $option != E && test $option != p && test $option != P && test $option != f && test $option != F && test $option != l && test $option != L
+do
+echo "Invalid option"
+echo -n "Enter option (e, p, f, l): "
+read option
+done
+
+if test $option = e || test $option = E
+then
+cat $name
+
+elif test $option = p || test $option = P
+then 
+less $name
+
+elif test $option = f || test $option = F
+then
+head -10 $name
+
+elif test $option = l || test $option = L
+then
+tail -10 $name
+
+fi
+

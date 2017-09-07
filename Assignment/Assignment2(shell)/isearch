@@ -1,0 +1,60 @@
+#!/bin/sh
+################################
+# EECS 2031 - Assignment 2
+# Filename: isearch
+# Author: Wang, Yang
+# Email: infi5959512@hotmail.com
+# Login ID: infi999
+################################
+
+echo -n "Enter the file name:"
+read name 
+
+if test ! -e $name
+then
+echo "File '$name' does not exist."
+exit 1
+elif test ! -r $name
+then
+echo "File '$name' is not readable."
+exit 1
+fi
+
+echo -n "Enter the word to search for:"
+read word
+echo -n "Case-sensitive (y/n)? "
+read senstitive
+
+while  test $senstitive != y && test $senstitive != n && test $senstitive != Y && test $senstitive != N
+do
+echo "Invalid option"
+echo -n "Case-sensitive (y/n)? "
+read senstitive
+done
+
+if test $senstitive = "y" || test $senstitive = "Y"
+then
+output=`grep $word $name`
+if test -z "$output" 
+then
+ echo "Word '$word' not found."
+else
+ grep "$word" $name
+fi
+
+
+else 
+output=`grep -i $word $name`
+if test -z "$output"
+then
+  echo "Word '$word' not found."
+else
+  grep -i "$word" $name
+fi
+fi
+
+
+
+
+
+
